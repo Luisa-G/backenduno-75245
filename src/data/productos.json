@@ -1,0 +1,17 @@
+[
+	{
+		"id": 1,
+		"description": "plato",
+		"thumbnail": ""
+	},
+	{
+		"id": 2,
+		"description": "plato",
+		"thumbnail": ""
+	},
+	{
+		"id": 3,
+		"description": "tenedor",
+		"thumbnail": "thumbnail"
+	}
+]
