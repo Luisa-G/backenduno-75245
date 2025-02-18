@@ -13,99 +13,44 @@ class ProductsManager{
     }
   }
 
-  async addProduct(description, thumbnail) {
+  async addProduct(title, description, code, price, status, stock, category, thumbnails) {
+    //obtiene lo que ya hay en el archivo
     let productos = await this.getProducts()
 
+    //encuentra el id máximo y asigna un nuevo id consecutivo (snippet del profe)
     let id = 1
     if (productos.length > 0) {
-      id = Math.max(...productos.map(d => d.id)) + 1
+      id = Math.max(...productos.map(p => p.id)) + 1
     }
 
     let nuevoProducto = {
       id,
-      description, thumbnail
+      title, description, code, price, status, stock, category, thumbnails
     }
 
+    // ---ME FALTA--- validar que sean strings, numeros, etc
+
+    //agrega lo nuevo al archivo
     productos.push(nuevoProducto)
     await fs.promises.writeFile(this.path, JSON.stringify(productos, null, "\t"))
     return nuevoProducto
   }
 }
 
+module.exports={ProductsManager}
 
 
+// const app = async()=>{
+//   const productsManager = new ProductsManager("./src/data/products.json")
+//   // console.log(await productsManager.getProducts())
 
-const app = async()=>{
-  const productsManager = new ProductsManager("./src/data/productos.json")
-  console.log(await productsManager.getProducts())
-
-  // console.log(await productsManager.addProduct("plato",""))
-  // console.log(await productsManager.addProduct("tenedor","thumbnail"))
-
+//   console.log(await productsManager.addProduct("Borrador","Borrador clásico", "HAB125",15, true, 30, "Herramientas", []))
+//   console.log(await productsManager.getProducts())
 
 
-
-}
-
-
-app()
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const fs=require("fs")
-
-// class UsersManager{
-//     constructor(rutaArchivo){
-//         this.path=rutaArchivo
-//     }
-
-//     async getUsers(){
-//         if(fs.existsSync(this.path)){
-//             return JSON.parse(await fs.promises.readFile(this.path, "utf-8"))
-//         }else{
-//             // throw new Error(`${this.path} not found...!!! :(`)
-//             return []
-//         }
-//     }
-
-//     async addUser(nombre, edad){
-//         let usuarios=await this.getUsers()
-
-//         let id=1
-//         if(usuarios.length>0){
-//             id=Math.max(...usuarios.map(d=>d.id))+1
-//         }
-
-//         // validaciones pertinentes... 
-
-//         let nuevoUsuario={
-//             id, 
-//             nombre, edad
-//         }
-
-//         usuarios.push(nuevoUsuario)
-//         await fs.promises.writeFile(this.path, JSON.stringify(usuarios, null, "\t"))
-//         return nuevoUsuario
-//     }
 // }
 
-// let datos={
-//     dato01:100, 
-//     dato02:200
-// }
+// app()
 
-// module.exports={
-//     UsersManager, 
-//     datos
-// }
+
 

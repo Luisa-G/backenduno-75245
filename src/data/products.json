@@ -1,0 +1,68 @@
+[
+	{
+		"id": 1,
+		"title": "Cuaderno de raya",
+		"description": "Cuaderno tamaño frances con raya espaciada",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 2,
+		"title": "Cuaderno liso",
+		"description": "Cuaderno tamaño carta liso",
+		"code": "CB123",
+		"price": 22,
+		"status": false,
+		"stock": 15,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 3,
+		"title": "Marcadores de colores",
+		"description": "Paquete de 7 marcadores gruesos de colores",
+		"code": "PA123",
+		"price": 100,
+		"status": true,
+		"stock": 20,
+		"category": "Plumas",
+		"thumbnails": []
+	},
+	{
+		"id": 4,
+		"title": "Lápiz",
+		"description": "Lápiz clásico con borrador",
+		"code": "PB222",
+		"price": 10,
+		"status": true,
+		"stock": 50,
+		"category": "Plumas",
+		"thumbnails": []
+	},
+	{
+		"id": 5,
+		"title": "Tijeras",
+		"description": "Tijeras resistentes para cualquier trabajo",
+		"code": "HAA455",
+		"price": 60,
+		"status": true,
+		"stock": 20,
+		"category": "Herramientas",
+		"thumbnails": []
+	},
+	{
+		"id": 6,
+		"title": "Borrador",
+		"description": "Borrador clásico",
+		"code": "HAB125",
+		"price": 15,
+		"status": true,
+		"stock": 30,
+		"category": "Herramientas",
+		"thumbnails": []
+	}
+]
