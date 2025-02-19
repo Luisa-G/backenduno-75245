@@ -56,13 +56,24 @@
 	},
 	{
 		"id": 6,
-		"title": "Borrador",
-		"description": "Borrador clásico",
-		"code": "HAB125",
-		"price": 15,
+		"title": "BARATO",
+		"description": "Bonita pluma de varios colores",
+		"code": "PDD125",
+		"price": 40,
 		"status": true,
-		"stock": 30,
-		"category": "Herramientas",
+		"stock": 10,
+		"category": "Plumas",
+		"thumbnails": []
+	},
+	{
+		"id": 7,
+		"title": "BARATO",
+		"description": "Bonita pluma de varios colores",
+		"code": "PDD125",
+		"price": 40,
+		"status": true,
+		"stock": 10,
+		"category": "Plumas",
 		"thumbnails": []
 	}
 ]
