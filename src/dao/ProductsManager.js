@@ -55,7 +55,7 @@ class ProductsManager{
     return nuevoProducto
   }
 
-// async modifyProduct(id) {
+// async updateProduct(id) {
 
 // }
 

@@ -1,49 +1,61 @@
-const express=require("express")
-const {ProductsManager}=require("./dao/ProductsManager.js")
-const {CartsManager}=require("./dao/CartsManager.js")
+const express=require("express");
+const {ProductsManager}=require("./dao/ProductsManager.js");
+const {CartsManager}=require("./dao/CartsManager.js");
 
-const productManager=new ProductsManager("./src/data/products.json")
-const cartManager=new CartsManager("./src/data/carts.json")
+const productManager=new ProductsManager("./src/data/products.json");
+const cartManager=new CartsManager("./src/data/carts.json");
 
-const PORT=8080
+const PORT=8080;
 
-const app=express()
+const app=express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
 
 
 app.get("/",(req, res)=>{
-
-  res.send(`Inicio`)
+  res.setHeader("Content-Type","text/plain");
+  res.status(200).send("Inicio");
 })
 
 app.get("/api/products", async(req, res)=>{
+  try {
 
-  let productos = await productManager.getProducts()
+    let productos = await productManager.getProducts();
 
-  res.status(200).send(productos)
+    res.setHeader("Content-Type","text/plain");
+    res.status(200).send(productos);
+  
+  } catch (error) {
+    res.status(404).json({error: error.message});
+  }
 })
 
 app.get("/api/products/:id", async(req, res)=>{
   try {
+
     let {id} = req.params
     let producto = await productManager.getProductById(id)
 
     res.status(200).send(producto)
+
   } catch (error) {
     res.status(404).json({error: error.message});
   }
-
 })
 
 app.get("/api/carts/:id", async(req, res)=>{
   try {
+
     let {id} = req.params
     let cart = await cartManager.getCartById(id)
 
     res.status(200).send(cart)
+
   } catch (error) {
     res.status(404).json({error: error.message});
   }
-
 })
 
 app.listen(PORT, ()=>{
