@@ -29,23 +29,37 @@ class CartsManager{
 
     return carrito
   }
+
+  async createCart() {
+    
+
+  }
+
+
+
+
+
+
+
+
 }
+
 
 
 
 module.exports = {CartsManager}
 
-const app = async()=>{
-  const cartsManager = new CartsManager("./src/data/carts.json")
+// const app = async()=>{
+//   const cartsManager = new CartsManager("./src/data/carts.json")
 
-  try {
-    console.log(await cartsManager.getCartById(2))
-  } catch (error) {
-    console.log(error.message)
-  }
+//   try {
+//     console.log(await cartsManager.getCartById(2))
+//   } catch (error) {
+//     console.log(error.message)
+//   }
   
   
 
-}
+// }
 
-app()
+// app()

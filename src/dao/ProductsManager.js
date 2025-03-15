@@ -13,21 +13,20 @@ class ProductsManager{
     }
   }
 
-  async getProductById(id){
-    id=Number(id);
-    if(isNaN(id)){
+  async getProductById(pid){
+    pid=Number(pid);
+    if(isNaN(pid)){
       throw new Error("Ingrese un id tipo number")
     }
-
 
     //obtiene lo que ya hay en el archivo
     let productos=await this.getProducts()
 
     //busca en el archivo
-    let producto=productos.find(p=>p.id==id)
+    let producto=productos.find(p=>p.id==pid)
 
     if(!producto){
-      throw new Error(`No existen productos con el id ${id}`)
+      throw new Error(`No existen productos con el id ${pid}`)
     }
 
     return producto
@@ -55,37 +54,51 @@ class ProductsManager{
     return nuevoProducto
   }
 
-// async updateProduct(id) {
+  async updateProduct(pid, title, description, code, price, status, stock, category, thumbnails) {
 
-// }
+    //trae los productos existentes
+    let productos = await this.getProducts()
+    
+    //encuentra el que se quiere modificar y sustituye los datos
+    let productosModificados = productos.map(p => {
+      if (p.id == pid) {
+        return {
+          ...p,
+          title: title || p.title,
+          description: description || p.description,
+          code: code || p.code,
+          price: price || p.price,
+          status: status || p.status,
+          stock: stock || p.stock,
+          category: category || p.category,
+          thumbnails: thumbnails || p.thumbnails,
+        }
+      }
+      return p;
+    })
 
-// async deleteProduct(id) {
+    //guarda los productos incluyendo el producto modificado
+    await fs.promises.writeFile(this.path, JSON.stringify(productosModificados, null, "\t"))
+  }
 
-// }
+  async deleteProduct(pid) {
 
+    //trae los productos existentes
+    let productos = await this.getProducts()
+
+    //encuentra el index del producto a eliminar
+    let productoEliminado = await this.getProductById(pid)
+    let posicion = productos.indexOf(productoEliminado)
+
+    //elimina el producto
+    productos.splice((posicion-1),1)
+
+    //guarda los prodoctos restantes
+    await fs.promises.writeFile(this.path, JSON.stringify(productos, null, "\t"))
+    
+
+  } 
 
 }
 
 module.exports={ProductsManager}
-
-
-// const app = async()=>{
-//   const productsManager = new ProductsManager("./src/data/products.json")
-  
-//   // console.log(await productsManager.addProduct("BARATO","Bonita pluma de varios colores", "PDD125",40, true, 10, "Plumas", []))
-  
-//   // console.log(await productsManager.getProducts())
-
-//   try {
-//     console.log(await productsManager.getProductById(3));
-
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-  
-
-
-
-// }
-
-// app()

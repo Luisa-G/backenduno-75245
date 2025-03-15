@@ -66,14 +66,14 @@
 		"thumbnails": []
 	},
 	{
-		"id": 7,
-		"title": "BARATO",
-		"description": "Bonita pluma de varios colores",
-		"code": "PDD125",
-		"price": 40,
+		"id": 8,
+		"title": "title post",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
 		"status": true,
-		"stock": 10,
-		"category": "Plumas",
+		"stock": 5,
+		"category": "Cuadernos",
 		"thumbnails": []
 	}
 ]

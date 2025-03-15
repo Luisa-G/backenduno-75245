@@ -24,36 +24,94 @@ app.get("/api/products", async(req, res)=>{
 
     let productos = await productManager.getProducts();
 
-    res.setHeader("Content-Type","text/plain");
-    res.status(200).send(productos);
+    res.setHeader("Content-Type","application/json");
+    res.status(200).json({productos})
   
   } catch (error) {
+    res.setHeader("Content-Type","application/json");
     res.status(404).json({error: error.message});
   }
 })
 
-app.get("/api/products/:id", async(req, res)=>{
+app.get("/api/products/:pid", async(req, res)=>{
   try {
 
-    let {id} = req.params
-    let producto = await productManager.getProductById(id)
+    let {pid} = req.params
+    let producto = await productManager.getProductById(pid)
 
-    res.status(200).send(producto)
+    res.setHeader("Content-Type","application/json");
+    res.status(200).json({producto: producto});
 
   } catch (error) {
+    res.setHeader("Content-Type","application/json");
     res.status(404).json({error: error.message});
   }
 })
 
-app.get("/api/carts/:id", async(req, res)=>{
+app.post("/api/products", async(req, res)=>{
   try {
+    
+    let {title, description, code, price, status, stock, category, thumbnails} = req.body
+    await productManager.addProduct(title, description, code, price, status, stock, category, thumbnails)
 
-    let {id} = req.params
-    let cart = await cartManager.getCartById(id)
-
-    res.status(200).send(cart)
+    res.setHeader("Content-Type","application/json");
+    return res.status(201).json({payload:"producto creado correctamente"});
 
   } catch (error) {
+    res.setHeader("Content-Type","application/json");
+    res.status(404).json({error: error.message});
+  }
+})
+
+app.put("/api/products/:pid", async(req,res)=>{
+  try {
+
+    let{pid} = req.params
+    let {title, description, code, price, status, stock, category, thumbnails} = req.body
+    await productManager.updateProduct(pid,title, description, code, price, status, stock, category, thumbnails)
+
+
+    res.setHeader("Content-Type","application/json");
+    return res.status(201).json({payload:"producto modificado correctamente"});
+
+  } catch (error) {
+    res.setHeader("Content-Type","application/json");
+    res.status(404).json({error: error.message});
+  }
+})
+
+app.delete("/api/products/:pid", async(req,res)=>{
+  try {
+    
+    let{pid} = req.params
+    await productManager.deleteProduct(pid)
+
+    res.setHeader("Content-Type","application/json");
+    res.status(200).json({payload:"producto eliminado correctamente"});
+
+  } catch (error) {
+    res.setHeader("Content-Type","application/json");
+    res.status(404).json({error: error.message});
+  }
+})
+
+
+
+
+
+
+
+app.get("/api/carts/:cid", async(req, res)=>{
+  try {
+
+    let {cid} = req.params
+    let cart = await cartManager.getCartById(cid)
+
+    res.setHeader("Content-Type","application/json");
+    res.status(200).json({cart})
+
+  } catch (error) {
+    res.setHeader("Content-Type","application/json");
     res.status(404).json({error: error.message});
   }
 })
