@@ -1,8 +1,8 @@
 const fs = require("fs")
 
 class CartsManager{
-  constructor(rutaArchivo) {
-    this.path = rutaArchivo
+  constructor(){
+    this.path="./src/data/carts.json"
   }
 
   async getCartById(id) {
@@ -47,7 +47,7 @@ class CartsManager{
 
 
 
-module.exports = {CartsManager}
+module.exports = CartsManager
 
 // const app = async()=>{
 //   const cartsManager = new CartsManager("./src/data/carts.json")
