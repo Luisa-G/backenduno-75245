@@ -1,8 +1,9 @@
 const fs=require("fs")
 
 class ProductsManager{
-  constructor(rutaArchivo){
-    this.path=rutaArchivo
+
+  constructor(){
+    this.path="./src/data/products.json"
   }
 
   async getProducts() {
@@ -18,6 +19,7 @@ class ProductsManager{
     if(isNaN(pid)){
       throw new Error("Ingrese un id tipo number")
     }
+    
 
     //obtiene lo que ya hay en el archivo
     let productos=await this.getProducts()
@@ -101,4 +103,21 @@ class ProductsManager{
 
 }
 
-module.exports={ProductsManager}
+module.exports=ProductsManager;
+
+
+// const app = async()=>{
+//   const productsManager = new ProductsManager("./src/data/products.json")
+  
+
+
+//     try {
+//       console.log(await productsManager.getProducts())
+
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+
+// }
+
+// app()
