@@ -75,5 +75,60 @@
 		"stock": 5,
 		"category": "Cuadernos",
 		"thumbnails": []
+	},
+	{
+		"id": 9,
+		"title": "title post",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 10,
+		"title": "2post",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 11,
+		"title": "nuevo",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 12,
+		"title": "nuevo222",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
+	},
+	{
+		"id": 13,
+		"title": "actualizado",
+		"description": "Cuaderno",
+		"code": "CA123",
+		"price": 20,
+		"status": true,
+		"stock": 5,
+		"category": "Cuadernos",
+		"thumbnails": []
 	}
 ]

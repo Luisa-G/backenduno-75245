@@ -1,0 +1,27 @@
+<h2>Ingresa un producto:</h2>
+<form>
+  <label for="title">Title:</label><input type="text" id="title" name="title"><br>
+  <label for="description">Description:</label><input type="text" id="description" name="description"><br>
+  <label for="code">Code:</label><input type="text" id="code" name="code"><br>
+  <label for="price">Price:</label><input type="text" id="price" name="price"><br>
+  <label for="status">Status:</label><input type="text" id="status" name="status"><br>
+  <label for="stock">Stock:</label><input type="text" id="stock" name="stock"><br>
+  <label for="category">Category:</label><input type="text" id="category" name="category"><br>
+  <label for="thumbnails">Thumbnails:</label><input type="text" id="thumbnails" name="thumbnails"><br>
+  <input type="submit" value="Enviar">
+</form>
+<hr>
+
+<h3>cada prod se puede eliminar y se actualiza la vista</h3>
+<br>
+<hr>
+
+<h2>Productos disponibles:</h2>
+<ul>
+  {{#each products}}
+    <li>{{title}}</li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

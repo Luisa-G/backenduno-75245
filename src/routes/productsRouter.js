@@ -38,10 +38,14 @@ router.post("/", async(req, res)=>{
   try {
     
     let {title, description, code, price, status, stock, category, thumbnails} = req.body
-    await productManager.addProduct(title, description, code, price, status, stock, category, thumbnails)
+    let newProduct = await productManager.addProduct(title, description, code, price, status, stock, category, thumbnails)
+
+    req.io.emit("newProduct", newProduct)
+
+
 
     res.setHeader("Content-Type","application/json");
-    return res.status(201).json({payload:"producto creado correctamente"});
+    return res.status(201).json({productoNuevo: newProduct});
 
   } catch (error) {
     res.setHeader("Content-Type","application/json");
