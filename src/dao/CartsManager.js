@@ -40,17 +40,26 @@ class CartsManager{
   }
 
   async addProductToCart(cid, pid) { 
-    let carritoElegido = await this.getCartById(cid);
+    // Leer todos los carritos
+    let carritos = JSON.parse(await fs.promises.readFile(this.path, "utf-8"));
+    
+    // Buscar el carrito por ID
+    let carritoIndex = carritos.findIndex(c => c.id == cid);
+    if (carritoIndex === -1) {
+        throw new Error(`No se encontró un carrito con ID ${cid}`);
+    }
+
+    let carritoElegido = carritos[carritoIndex];
     console.log("Carrito elegido:", carritoElegido);
 
-    // Asegurar que products es un array
+    // Asegurar que `products` es un array
     let productosEnCarrito = Array.isArray(carritoElegido.products) 
         ? carritoElegido.products 
         : JSON.parse(carritoElegido.products);
 
-    console.log("Productos en carrito:", productosEnCarrito);
+    console.log("Productos en carrito antes de agregar:", productosEnCarrito);
 
-    // Buscar producto en el carrito
+    // Buscar si el producto ya está en el carrito
     let productoElegido = productosEnCarrito.find(p => p.product === pid);
 
     if (!productoElegido) {
@@ -62,13 +71,13 @@ class CartsManager{
         productoElegido.quantity += 1;
     }
 
-    // Actualizar carrito con la nueva lista de productos
-    carritoElegido.products = productosEnCarrito;
+    // Actualizar el carrito en el array general
+    carritos[carritoIndex].products = productosEnCarrito;
 
-    // Guardar en el archivo JSON
-    await fs.promises.writeFile(this.path, JSON.stringify(carritoElegido, null, "\t"));
+    // Guardar todos los carritos nuevamente en el archivo
+    await fs.promises.writeFile(this.path, JSON.stringify(carritos, null, 2));
 
-    console.log("Carrito actualizado:", carritoElegido);
+    console.log("Carrito actualizado:", carritos[carritoIndex]);
 }
 
 
