@@ -1,9 +1,11 @@
-const express=require("express");
+const express=require("express")
 const {Server} = require("socket.io")
 const {engine} = require("express-handlebars")
 const routerProducts = require("./routes/productsRouter.js")
 const routerCarts = require("./routes/cartsRouter.js")
 const routerViews = require("./routes/viewsRouter.js")
+
+const ConnectDB = require ("./conDB")
 
 let io = undefined
 
@@ -14,6 +16,8 @@ const app=express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static("./src/public"));
+
+ConnectDB();
 
 app.engine("handlebars", engine())
 app.set("view engine", "handlebars")
