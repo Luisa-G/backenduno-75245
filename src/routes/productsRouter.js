@@ -42,8 +42,6 @@ router.post("/", async(req, res)=>{
 
     req.io.emit("newProduct", newProduct)
 
-
-
     res.setHeader("Content-Type","application/json");
     return res.status(201).json({productoNuevo: newProduct});
 
@@ -84,12 +82,5 @@ router.delete("/:pid", async(req,res)=>{
     res.status(404).json({error: error.message});
   }
 })
-
-
-
-
-
-
-
 
 module.exports = router

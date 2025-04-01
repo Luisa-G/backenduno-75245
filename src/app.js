@@ -22,9 +22,7 @@ app.set("views", "./src/views")
 app.use(
   "/api/products",
   (req, res, next)=>{
-    
     req.io=io
-
     next()
   },
   routerProducts
@@ -32,9 +30,7 @@ app.use(
 app.use(
   "/api/carts",
   (req, res, next)=>{
-    
     req.io=io
-
     next()
   },
   routerCarts
