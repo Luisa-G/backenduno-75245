@@ -130,5 +130,15 @@
 		"stock": 5,
 		"category": "Cuadernos",
 		"thumbnails": []
+	},
+	{
+		"id": 14,
+		"title": "Clavos 999",
+		"description": "clavos",
+		"code": 55443,
+		"price": 3,
+		"status": true,
+		"stock": 2,
+		"category": "Herramientas"
 	}
 ]

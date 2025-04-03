@@ -1,22 +1,9 @@
 const mongoose = require ("mongoose")
-
-// export const conectarDB=async(uriMongoDB, dbName)=>{
-//     try {
-//         await mongoose.connect(
-//             uriMongoDB,
-//             {
-//                 dbName: dbName
-//             }
-//         )
-//         console.log("Conectado a base de datos")
-//     } catch (error) {
-//         console.log(`Error al conectar a base de datos ${error.message}`)
-//     }
-// }
+const config = require("./config/config")
 
 const ConnectDB = async () =>{
   try{
-      await mongoose.connect("mongodb+srv://luisagonzalezpico:QmzlRnmK4aAY83ZW@cluster0.jr4n8j8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+      await mongoose.connect(config.MONGO_URL)
       console.log("Conectado a base de datos MongoDB")
   }
       catch(error){

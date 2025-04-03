@@ -6,10 +6,11 @@ const routerCarts = require("./routes/cartsRouter.js")
 const routerViews = require("./routes/viewsRouter.js")
 
 const ConnectDB = require ("./conDB")
+const config = require("./config/config.js")
 
 let io = undefined
 
-const PORT=8080;
+const PORT=config.PORT;
 
 const app=express();
 
