@@ -1,14 +1,18 @@
 
+const mongoose = require("mongoose")
 const { Router } = require("express");
-const ProductsManager = require ("../dao/ProductsManager.js")
+// const ProductsManager = require ("../dao/ProductsManager.js")
+
+const ProductsManagerMongo = require("../dao/ProductsManagerMongo.js")
+const ProductsManager = ProductsManagerMongo
 
 const router = Router()
-const productManager = new ProductsManager("../src/data/products.json"); 
+// const productManager = new ProductsManager("../src/data/products.json"); 
 
 router.get("/", async(req, res)=>{
   try {
 
-    let productos = await productManager.getProducts();
+    let productos = await ProductsManager.get();
 
     res.setHeader("Content-Type","application/json");
     res.status(200).json({productos})
@@ -21,9 +25,14 @@ router.get("/", async(req, res)=>{
 
 router.get("/:pid", async(req, res)=>{
   try {
-
+    
     let {pid} = req.params
-    let producto = await productManager.getProductById(pid)
+
+    if (!mongoose.Types.ObjectId.isValid(pid)) {
+      return res.status(400).json({ error: "ID no válido" });
+    }
+
+    let producto = await ProductsManager.getBy({_id: pid})
 
     res.setHeader("Content-Type","application/json");
     res.status(200).json({producto: producto});
@@ -38,7 +47,7 @@ router.post("/", async(req, res)=>{
   try {
     
     let {title, description, code, price, status, stock, category, thumbnails} = req.body
-    let newProduct = await productManager.addProduct(title, description, code, price, status, stock, category, thumbnails)
+    let newProduct = await ProductsManager.save({title, description, code, price, status, stock, category, thumbnails})
 
     req.io.emit("newProduct", newProduct)
 
@@ -56,7 +65,7 @@ router.put("/:pid", async(req,res)=>{
 
     let{pid} = req.params
     let {title, description, code, price, status, stock, category, thumbnails} = req.body
-    await productManager.updateProduct(pid,title, description, code, price, status, stock, category, thumbnails)
+    await ProductsManager.update(pid,{title, description, code, price, status, stock, category, thumbnails})
 
 
     res.setHeader("Content-Type","application/json");
@@ -72,7 +81,7 @@ router.delete("/:pid", async(req,res)=>{
   try {
     
     let{pid} = req.params
-    await productManager.deleteProduct(pid)
+    await ProductsManager.delete(pid)
 
     res.setHeader("Content-Type","application/json");
     res.status(200).json({payload:"producto eliminado correctamente"});
