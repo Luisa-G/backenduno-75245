@@ -1,14 +1,18 @@
+const mongoose = require("mongoose")
 const { Router } = require("express");
-const CartsManager = require ("../dao/CartsManager.js")
+// const CartsManager = require ("../dao/CartsManager.js")
+
+const CartsManagerMongo = require ("../dao/CartsManagerMongo")
+const CartsManager = CartsManagerMongo
 
 const router = Router()
-const cartManager = new CartsManager("../src/data/carts.json")
+// const cartManager = new CartsManager("../src/data/carts.json")
 
 router.post("/", async(req, res)=>{
   try {
     
     let {products} = req.body
-    let newCart = await cartManager.addCart(products)
+    let newCart = await CartsManager.save(products)
 
     res.setHeader("Content-Type","application/json");
     return res.status(201).json({carritoNuevo: newCart});
@@ -23,7 +27,7 @@ router.get("/:cid", async(req, res)=>{
   try {
 
     let {cid} = req.params
-    let cart = await cartManager.getCartById(cid)
+    let cart = await CartsManager.getCartById(cid)
 
     res.setHeader("Content-Type","application/json");
     res.status(200).json({cart})
@@ -38,7 +42,7 @@ router.post("/:cid/product/:pid", async(req, res)=>{
   try {
     
     let {cid, pid} = req.params
-    await cartManager.addProductToCart(cid, pid)
+    await CartsManager.addProductToCart(cid, pid)
 
     res.setHeader("Content-Type","application/json");
     return res.status(201).json("Producto agregado al carrito seleccionado");

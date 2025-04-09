@@ -29,4 +29,4 @@ const cartModel = mongoose.model(
   cartsSchema
 )
 
-module.exports = cartsModel
+module.exports = cartModel
