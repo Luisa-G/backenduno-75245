@@ -2,7 +2,7 @@ const productModel = require("./models/productsModel")
 
 
 class ProductsManagerMongo{
-    static async get() {
+  static async get() {
     return await productModel.find().lean()
   }
 

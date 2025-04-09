@@ -23,11 +23,34 @@ router.post("/", async(req, res)=>{
   }
 })
 
+router.put("/:cid", async(req, res)=>{
+  try {
+    
+    let {cid} = req.params
+    let {products} = req.body
+    let updatedCart = await CartsManager.update(cid, {products})
+
+    res.setHeader("Content-Type","application/json");
+    return res.status(201).json({carritoActualizado: updatedCart});
+
+  } catch (error) {
+    res.setHeader("Content-Type","application/json");
+    res.status(404).json({error: error.message});
+  }
+})
+
 router.get("/:cid", async(req, res)=>{
   try {
 
     let {cid} = req.params
-    let cart = await CartsManager.getCartById(cid)
+
+
+    if (!mongoose.Types.ObjectId.isValid(cid)) {
+      return res.status(400).json({ error: "ID no válido" });
+    }
+
+
+    let cart = await CartsManager.getBy({_id: cid})
 
     res.setHeader("Content-Type","application/json");
     res.status(200).json({cart})
@@ -38,19 +61,19 @@ router.get("/:cid", async(req, res)=>{
   }
 })
 
-router.post("/:cid/product/:pid", async(req, res)=>{
-  try {
+// router.post("/:cid/product/:pid", async(req, res)=>{
+//   try {
     
-    let {cid, pid} = req.params
-    await CartsManager.addProductToCart(cid, pid)
+//     let {cid, pid} = req.params
+//     await CartsManager.addProductToCart(cid, pid)
 
-    res.setHeader("Content-Type","application/json");
-    return res.status(201).json("Producto agregado al carrito seleccionado");
+//     res.setHeader("Content-Type","application/json");
+//     return res.status(201).json("Producto agregado al carrito seleccionado");
 
-  } catch (error) {
-    res.setHeader("Content-Type","application/json");
-    res.status(404).json({error: error.message});
-  }
-})
+//   } catch (error) {
+//     res.setHeader("Content-Type","application/json");
+//     res.status(404).json({error: error.message});
+//   }
+// })
 
 module.exports = router
