@@ -47,6 +47,28 @@ router.post("/", async(req, res)=>{
   try {
     
     let {title, description, code, price, status, stock, category, thumbnails} = req.body
+
+    //validar que se tengan las propiedades requeridas
+    if(
+      title === undefined || 
+      stock === undefined || 
+      price === undefined || 
+      description === undefined || 
+      category === undefined || 
+      code === undefined || 
+      thumbnails === undefined || 
+      status === undefined
+    ){
+      res.setHeader('Content-Type','application/json');
+      return res.status(400).json({error:`title, stock, price, description, category,  code, thumbnails y status son requeridos`})
+  }
+
+    //validar si ya existe
+    const existingCode = await ProductsManager.getBy({code})
+    if(existingCode){
+      return res.status(400).json({ error: "code ya existente" });
+    }
+
     let newProduct = await ProductsManager.save({title, description, code, price, status, stock, category, thumbnails})
 
     req.io.emit("newProduct", newProduct)

@@ -27,7 +27,15 @@ router.put("/:cid", async(req, res)=>{
   try {
     
     let {cid} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(cid)){
+      res.setHeader('Content-Type','application/json');
+      return res.status(400).json({error:`Ingrese un id válido de MongoDB`})
+    }
+
+
     let {products} = req.body
+    
     let updatedCart = await CartsManager.update(cid, {products})
 
     res.setHeader("Content-Type","application/json");
